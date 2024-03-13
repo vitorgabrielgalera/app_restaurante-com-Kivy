@@ -87,4 +87,3 @@ class PongApp(App):
 #inicia o app
 if __name__ == '__main__':
     PongApp().run()
-
