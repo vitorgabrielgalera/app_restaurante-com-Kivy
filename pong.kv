@@ -3,8 +3,10 @@
 #crio o elemento visual da bolinha
 <PongBall>:
     #defino o tamanho da bolinha
-    size: 50, 50
+    size: 18, 18
     canvas:
+        Color:
+            rgb:0,255,0
         Ellipse:
             #aplico a posição na bolinha
             pos: self.pos
@@ -13,7 +15,7 @@
 
 
 <PongPaddle>:
-    size: 25, 200
+    size: 25, 300
     canvas:
         Rectangle:
             pos: self.pos
@@ -27,6 +29,8 @@
 
     #crio os widgets que irão conter os elementos visuais  
     canvas:
+        Color:
+            rgb: (99, 219, 215)
         #crio o retângulo que indicará o meio da tela
         Rectangle:
             #posicio o retângulo

@@ -17,11 +17,12 @@ class PongPaddle(Widget):
             offset = (ball.center_y - self.center_y) / (self.height / 2)
             bounced = Vector(-1 * vx, vy)
             #aumenta a velocidade da bolinha
-            vel = bounced * 1.1
+            vel = bounced * 1.5
             ball.velocity = vel.x, vel.y + offset
 
 #crio a classe para o widget da bolinha
 class PongBall(Widget):
+    title = "Pong Game"
 
     # velocidade da bolinha nos eixos x e y
     velocity_x = NumericProperty(0)
