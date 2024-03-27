@@ -4,6 +4,11 @@ from kivy.uix.label import Label
 from kivy.uix.textinput import TextInput
 from kivy.uix.button import Button
 
+#muda a cor da janela
+from kivy.core.window import Window
+
+Window.clearcolor = (120/255.0, 80/255.0, 20/255.0, 1)
+
 class MainLayout(GridLayout):
     def __init__(self, **kwargs):
         super(MainLayout, self).__init__(**kwargs)
