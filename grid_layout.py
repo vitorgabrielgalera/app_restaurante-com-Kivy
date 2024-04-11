@@ -13,6 +13,12 @@ class MainGridLayout(GridLayout):
         self.cols = 2
         self.spacing = 2
         self.padding = 6
+        #defino o tamonho mínimo para as colunas e linhas
+        self.row_default_height = 100
+        self.col_default_width = 200
+        #força a linha e a coluna a estarem sempre do mesmo tamanho
+        self.row_force_default = True
+        self.col_force_default = True
 
         #adiciono o primeito botão
         self.add_widget(Button(text="Main GridLayout 1"))
