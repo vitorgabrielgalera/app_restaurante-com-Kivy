@@ -16,13 +16,19 @@ class MainBoxLayout(BoxLayout):
         self.remove_text = Button(text="remove text label")
         self.add_widget(self.remove_text)
         self.remove_text.bind(on_press=self.remove_text_label)
+        
+        self.label_list = []
 
     def add_text_label(self, instance):
-        self.add_widget(Label(text="Texto 1"))
+        tamanho = len(self.children)
+        label = Label(text=f"{tamanho}")
+        self.add_widget(label, index=tamanho)
+        self.label_list.append(label)
 
     def remove_text_label(self, instance):
-        if self.children:
-            self.remove_widget(self.children[0])
+        if len(self.children) > 2:
+            #self.remove_widget(self.children[len(self.children)-1])
+            self.remove_widget(self.label_list.pop())
 
 class BoxLayoutApp(App):
     def build(self):
