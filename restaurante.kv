@@ -1,17 +1,76 @@
 #:kivy 2.3.0
 
+#sem transição
+#:import NoTransition kivy.uix.screenmanager.NoTransition
+
+#uma tela vai para o fundo, a outra vem pelo lado
+#:import SwapTransition kivy.uix.screenmanager.SwapTransition
+
+#uma tela vai perdendo opacidade enquanto a outra ganha
+#:import FadeTransition kivy.uix.screenmanager.FadeTransition
+
+<Label>:
+    color: 1, 1, 1, 1
+    font_size: 20
+    halign: "center"
+    valign: "middle"
+
+GerenciadorTelas:
+    transition: NoTransition()
+    TelaPrincipal:
+    TelaGarcom:    
+
 <TelaPrincipal>:
 
-    cols: 1
-    spacing: 2
-    padding: 6
+    name: 'tela_principal'
+    GridLayout:
 
-    Label:
-        text: 'Olá! seja bem vindo ao nosso super legal melhor bão de tudo app'
+        size_hint: 1,1
+        cols: 1
+        spacing: 2
+        padding: 6
+    
+        Label:
+            text: "Olá, seja bem vindo ao nosso super mega melhor de bão de tudo app!"
+            text_size: self.size
+    
+        Button:
+            text: 'Garçom'
+            on_release:
+                app.root.current = 'tela_garcom'
+                root.manager.transition.direction = 'left'
+                root.manager.transition.duration = 0
 
-    Button:
-        text: 'Garçom'
-    Button:
-        text: 'Cozinha'
-    Button:
-        text: 'Caixa'
+        Button:
+            text: 'Cozinha'
+
+        Button:
+            text: 'Caixa'
+
+
+<TelaGarcom>:
+
+    name: 'tela_garcom'
+    GridLayout:
+        cols: 1
+        spacing: 2
+        padding: 6
+
+        Label:
+            text: "Garçom"
+
+        TextInput:
+            hint_text: 'Mesa'
+            
+        TextInput:
+            hint_text: 'Pedido'
+    
+        Button:
+            text: "Enviar"
+    
+        Button:
+            text: "Voltar"
+            on_release:
+                app.root.current = 'tela_principal'
+                root.manager.transition.direction = 'right'
+                root.manager.transition.duration = 0
