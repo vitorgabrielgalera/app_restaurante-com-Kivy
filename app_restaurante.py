@@ -15,6 +15,12 @@ class TelaPrincipal(Screen):
 class TelaGarcom(Screen):
     pass
 
+class TelaCozinha(Screen):
+    pass
+
+class TelaCaixa(Screen):
+    pass
+
 class GerenciadorTelas(ScreenManager):
     pass
 

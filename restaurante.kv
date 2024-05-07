@@ -18,7 +18,9 @@
 GerenciadorTelas:
     transition: NoTransition()
     TelaPrincipal:
-    TelaGarcom:    
+    TelaGarcom:
+    TelaCozinha:  
+    TelaCaixa:
 
 <TelaPrincipal>:
 
@@ -43,10 +45,19 @@ GerenciadorTelas:
 
         Button:
             text: 'Cozinha'
+            on_release:
+                app.root.current = 'tela_cozinha'
+                root.manager.transition.direction = 'up'
+                root.manager.transition.duration = 0
 
         Button:
             text: 'Caixa'
+            on_release:
+                app.root.current = 'tela_caixa'
+                root.manager.transition.direction = 'rigth'
+                root.manager.transition.duration = 0
 
+###################################################################
 
 <TelaGarcom>:
 
@@ -73,4 +84,62 @@ GerenciadorTelas:
             on_release:
                 app.root.current = 'tela_principal'
                 root.manager.transition.direction = 'right'
+                root.manager.transition.duration = 0
+
+###################################################################
+
+<TelaCozinha>:
+
+    name: 'tela_cozinha'
+    GridLayout:
+        cols: 1
+        spacing: 2
+        padding: 6
+
+        SecondCozinha:
+            
+        TextInput:
+            hint_text: 'sem pedidos'
+
+        Button:
+            text: "Voltar"
+            on_release:
+                app.root.current = 'tela_principal'
+                root.manager.transition.direction = 'down'
+                root.manager.transition.duration = 0
+
+<SecondCozinha@GridLayout>:
+    cols: 1
+    spacing: 2
+    padding: 6
+
+    Label:
+        text: "Cozinha"
+    Label:
+        text: 'Pedidos:'
+
+###################################################################
+
+<TelaCaixa>:
+
+    name: 'tela_caixa'
+    GridLayout:
+        cols: 1
+        spacing: 2
+        padding: 6
+
+        Label:
+            text: "Caixa"
+
+        TextInput:
+            hint_text: 'mesa'
+            
+        TextInput:
+            hint_text: 'sem pedido'
+
+        Button:
+            text: "Voltar"
+            on_release:
+                app.root.current = 'tela_principal'
+                root.manager.transition.direction = 'left'
                 root.manager.transition.duration = 0
