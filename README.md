@@ -1,1 +1,1 @@
-Jogo simples de pong utilizando python e kv
+Projetos utilizando Kivy

@@ -17,14 +17,103 @@
 
 GerenciadorTelas:
     transition: NoTransition()
+    TelaLogin:
     TelaPrincipal:
     TelaGarcom:
     TelaCozinha:  
     TelaCaixa:
 
+###################################################################
+
+<TelaLogin>:
+    
+    name:"tela_login"
+
+    canvas.before:
+        Color:
+            rgba: 1,1,1,1
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: "restaurante fundo.jpg"
+
+    #imagem de fundo e mensagem inicial
+    FloatLayout:
+        size_hint: 1,1
+
+        canvas:
+            Color:
+                rgba: 1,0,0,1
+            Rectangle:
+                size: self.size
+                pos: self.pos
+
+        #mensagem inicial
+        Label:
+            text: "Bem vindo ao nosso app insira suas credenciais para acessar o sistema!"
+            size_hint: 0.8,0.3
+            text_size: self.size
+            pos_hint: {"center_x": 0.5, "top": 0.9}
+    
+    #entradas de texto e botôes
+    BoxLayout:
+        orientation: "vertical"
+        spacing: 10
+        size_hint: 0.8, 0.4
+        pos_hint: {"center_x": 0.5, "y": 0.1}
+
+        canvas:
+            Color:
+                rgba: 0,0,1,1
+            Rectangle:
+                size: self.size
+                pos: self.pos
+
+        #texto para o usuário
+        TextInput:
+            id: txt_usuario
+            padding_y: 15,0
+            hint_text: "Digite o usuário"
+            color: 0,0,0,1
+            haling: "center"
+            write_tab: False 
+
+        #texto para a senha
+        TextInput:
+            id: txt_senha
+            padding_y: 15,0
+            hint_text: "Digite a senha"
+            password: True
+            color: 0,0,0,1
+            haling: "center"
+            write_tab: False 
+
+        #botão para entrar
+        Button:
+            text: "Entrar"
+            on_press:
+                root.autenticar()
+
+        #botão para sair
+        Button:
+            text: "Sair"
+            on_press: app.stop()
+
+###################################################################
+
 <TelaPrincipal>:
 
     name: 'tela_principal'
+
+    canvas.before:
+        Color:
+            rgba: 1,1,1,1
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: "restaurante fundo.jpg"
+
+    #layout para textos e botões
     GridLayout:
 
         size_hint: 1,1
@@ -35,7 +124,11 @@ GerenciadorTelas:
         Label:
             text: "Olá, seja bem vindo ao nosso super mega melhor de bão de tudo app!"
             text_size: self.size
-    
+
+        Label:
+            text: ""
+        
+        #botões para as outras telas
         Button:
             text: 'Garçom'
             on_release:
@@ -62,6 +155,16 @@ GerenciadorTelas:
 <TelaGarcom>:
 
     name: 'tela_garcom'
+
+    canvas.before:
+        Color:
+            rgba: 1,1,1,1
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: "restaurante fundo.jpg"
+    
+    #layout para os widgets
     GridLayout:
         cols: 1
         spacing: 2
@@ -91,6 +194,16 @@ GerenciadorTelas:
 <TelaCozinha>:
 
     name: 'tela_cozinha'
+
+    canvas.before:
+        Color:
+            rgba: 1,1,1,1
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: "restaurante fundo.jpg"
+
+    #layout para os widgets
     GridLayout:
         cols: 1
         spacing: 2
@@ -108,6 +221,7 @@ GerenciadorTelas:
                 root.manager.transition.direction = 'down'
                 root.manager.transition.duration = 0
 
+#layout secundário para os textos
 <SecondCozinha@GridLayout>:
     cols: 1
     spacing: 2
@@ -123,6 +237,16 @@ GerenciadorTelas:
 <TelaCaixa>:
 
     name: 'tela_caixa'
+
+    canvas.before:
+        Color:
+            rgba: 1,1,1,1
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: "restaurante fundo.jpg"
+
+    #layout para os widgets            
     GridLayout:
         cols: 1
         spacing: 2
