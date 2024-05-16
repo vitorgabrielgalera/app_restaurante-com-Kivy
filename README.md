@@ -1,1 +1,1 @@
-Projetos utilizando Kivy
+Projetos utilizando Kivy e squitedb

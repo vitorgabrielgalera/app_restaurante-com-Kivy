@@ -14,28 +14,32 @@ Config.set('graphics', 'resizable', '0')
 Config.set('graphics', 'width', '360')
 Config.set('graphics', 'heigth', '640')
 
-#popup para quando a senha ou o usuario estiverem errados
+#popup para quando a senha ou o usuario estiverem errados utilizando python
+#class PopupErro(Popup):
+#    def __init__(self, **kwargs):
+#        super().__init__(**kwargs)
+#        self.title = "Erro de autenticação"
+#        self.size_hint = (0.7, 0.4)
+#        self.auto_dismiss = False
+#
+#        self.box = BoxLayout(orientation="vertical")
+#        self.box.add_widget(
+#            Label(
+#                text="Usuário ou senha inválidos!"
+#            )
+#        )
+#        self.box.add_widget(
+#            Button(
+#                text= "Fechar",
+#                on_press= self.dismiss
+#            )
+#        )
+#
+#        self.add_widget(self.box)
+
+#popup para quando a senha ou o usuario estiverem errados utilizando kv
 class PopupErro(Popup):
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-        self.title = "Erro de autenticação"
-        self.size_hint = (0.7, 0.4)
-        self.auto_dismiss = False
-
-        self.box = BoxLayout(orientation="vertical")
-        self.box.add_widget(
-            Label(
-                text="Usuário ou senha inválidos!"
-            )
-        )
-        self.box.add_widget(
-            Button(
-                text= "Fechar",
-                on_press= self.dismiss
-            )
-        )
-
-        self.add_widget(self.box)
+    pass
 
 class TelaLogin(Screen):
     def autenticar(self):
@@ -43,7 +47,7 @@ class TelaLogin(Screen):
         senha = self.ids.txt_senha.text
 
         #Api que armazena os dados do usuario
-        url = "https://ae4c-170-231-200-76.ngrok-free.app/restaurante/autenticar"
+        url = "https://2181-168-232-136-83.ngrok-free.app/restaurante/autenticar"
 
         #guarda a senha e o nome em uma unica variável
         dados = {"usuario": usuario, "senha": senha}

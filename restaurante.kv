@@ -25,6 +25,26 @@ GerenciadorTelas:
 
 ###################################################################
 
+<PopupErro>:
+    id: popup_erro
+    auto_dismiss: False
+    size_hint: 0.7, 0.4
+    pos_hint: {"center_x": 0.5, "center_y": 0.5}
+    title: "Erro de autenticação"
+    BoxLayout:
+        orientation: "vertical"
+
+        Label:
+            text: "Usuário ou senha inválidos"
+            size_hint: 1, 0.8
+            text_size: self.size
+
+        Button:
+            text: "Fechar"
+            on_press: root.dismiss()
+
+###################################################################
+
 <TelaLogin>:
     
     name:"tela_login"
@@ -41,13 +61,6 @@ GerenciadorTelas:
     FloatLayout:
         size_hint: 1,1
 
-        canvas:
-            Color:
-                rgba: 1,0,0,1
-            Rectangle:
-                size: self.size
-                pos: self.pos
-
         #mensagem inicial
         Label:
             text: "Bem vindo ao nosso app insira suas credenciais para acessar o sistema!"
@@ -61,13 +74,6 @@ GerenciadorTelas:
         spacing: 10
         size_hint: 0.8, 0.4
         pos_hint: {"center_x": 0.5, "y": 0.1}
-
-        canvas:
-            Color:
-                rgba: 0,0,1,1
-            Rectangle:
-                size: self.size
-                pos: self.pos
 
         #texto para o usuário
         TextInput:
