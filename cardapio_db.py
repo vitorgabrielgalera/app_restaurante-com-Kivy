@@ -32,7 +32,7 @@ while True:
     preco = float(input("preco do item: "))
     descricao = input("descrição do item: ")
     pedido = int(input("Pedido ( 1 - Cozinha, 2 - Bar) "))
-    pedido = "Cozinha" if pedido == '1' else 'Bar'
+    pedido = "Cozinha" if pedido == 1 else 'Bar'
 
     cursor.execute(f'''
         INSERT INTO cardapio (nome, preco, descricao, pedido)

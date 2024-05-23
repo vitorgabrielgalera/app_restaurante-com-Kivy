@@ -17,11 +17,13 @@
 
 GerenciadorTelas:
     transition: NoTransition()
+    TelaGarcom:
     TelaLogin:
     TelaPrincipal:
-    TelaGarcom:
+    
     TelaCozinha:  
     TelaCaixa:
+    TelaBar:
 
 ###################################################################
 
@@ -156,6 +158,13 @@ GerenciadorTelas:
                 root.manager.transition.direction = 'rigth'
                 root.manager.transition.duration = 0
 
+        Button:
+            text: 'Bar'
+            on_release:
+                app.root.current = 'tela_bar'
+                root.manager.transition.direction = 'left'
+                root.manager.transition.duration = 0
+
 ###################################################################
 
 <TelaGarcom>:
@@ -179,11 +188,61 @@ GerenciadorTelas:
         Label:
             text: "Garçom"
 
-        TextInput:
-            hint_text: 'Mesa'
+        Spinner:
+            text: "Mesa"
+            values: '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'
             
-        TextInput:
-            hint_text: 'Pedido'
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint: 1, None
+            height: 30
+
+            canvas.before:
+                Color:
+                    rgba: 0.5,0.5,0.5,1
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+
+            Label:
+                text: 'Bar'
+
+            CheckBox:
+                id: radio_bar
+                active: True
+                group: "pedido"
+                allow_no_selection: False
+                on_active: root.atualiza_lista_cardapio()
+
+            Label:
+                text: 'Cozinha'
+
+            CheckBox:
+                id: radio_cozinha
+                active: False
+                group: "pedido"
+                allow_no_selection: False
+                on_active: root.atualiza_lista_cardapio()
+
+        BoxLayout:
+            orientation: 'horizontal'
+
+            Button:
+                text: '-'
+                on_press: root.decrementa_qtd_item()
+
+            TextInput:
+                id: qtd_item
+                text: '0'
+
+            Button:
+                text: '+'
+                on_press: root.incrementa_qtd_item()
+            
+        Spinner:
+            id: itens_cardapio
+            text: "Salecione"
+            values: root.cardapio_itens
     
         Button:
             text: "Enviar"
@@ -273,3 +332,45 @@ GerenciadorTelas:
                 app.root.current = 'tela_principal'
                 root.manager.transition.direction = 'left'
                 root.manager.transition.duration = 0
+
+###################################################################
+
+<TelaBar>:
+    name: 'tela_bar'
+
+    canvas.before:
+        Color:
+            rgba: 1,1,1,1
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: "restaurante fundo.jpg"
+
+        #layout para os widgets
+    GridLayout:
+        cols: 1
+        spacing: 2
+        padding: 6
+
+        SecondCozinha:
+            
+        TextInput:
+            hint_text: 'sem pedidos'
+
+        Button:
+            text: "Voltar"
+            on_release:
+                app.root.current = 'tela_principal'
+                root.manager.transition.direction = 'down'
+                root.manager.transition.duration = 0
+
+#layout secundário para os textos
+<SecondCBar@GridLayout>:
+    cols: 1
+    spacing: 2
+    padding: 6
+
+    Label:
+        text: "Bar"
+    Label:
+        text: 'Pedidos:'
