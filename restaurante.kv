@@ -180,79 +180,118 @@ GerenciadorTelas:
             source: "restaurante fundo.jpg"
     
     #layout para os widgets
-    GridLayout:
-        cols: 1
-        spacing: 2
-        padding: 6
+    FloatLayout:
+        id: main_box
+        size_hint: 0.8, 0.9
+        pos_hint: {"center_x": 0.5, "center_y": 0.5}
 
+        #layout superior
+        BoxLayout:
+            orientation: "vertical"
+            spacing: 10
+            size_hint: 1,0.4
+            pos_hint: {"center_x": 0.5, "top": 1}
+
+            #mesa
+            Spinner:
+                text: "Mesa"
+                values: '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'
+            
+            #radiobuttons
+            BoxLayout:
+                orientation: 'horizontal'
+                size_hint: 1, None
+                height: 30
+
+                canvas.before:
+                    Color:
+                        rgba: 0.5,0.5,0.5,1
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+
+                Label:
+                    text: 'Bar'
+
+                CheckBox:
+                    id: radio_bar
+                    active: True
+                    group: "pedido"
+                    allow_no_selection: False
+                    on_active: root.atualiza_lista_cardapio()
+
+                Label:
+                    text: 'Cozinha'
+
+                CheckBox:
+                    id: radio_cozinha
+                    active: False
+                    group: "pedido"
+                    allow_no_selection: False
+                    on_active: root.atualiza_lista_cardapio()
+
+            #número de itens
+            BoxLayout:
+                orientation: 'horizontal'
+                spacing: 10
+
+                BoxLayout:
+                    orientation: 'horizontal'
+
+                    Button:
+                        size_hint_x: 0.7
+                        text: '-'
+                        on_press: root.decrementa_qtd_item()
+
+                    TextInput:
+                        id: qtd_item
+                        text: '0'
+                        font_size: 30
+                        haling: "center"
+                        valing: "center"
+
+                    Button:
+                        size_hint_x: 0.7
+                        text: '+'
+                        on_press: root.incrementa_qtd_item()
+                    
+                Spinner:
+                    size_hint_x: 2
+                    id: itens_cardapio
+                    text: "Salecione"
+                    values: root.cardapio_itens
+
+            #adicionar itens
+            Button:
+                text: 'Adicionar'
+                  
+        #Lista de itens 
         Label:
-            text: "Garçom"
+            id: itens_pedido
+            text: "Pedido:"
+            valing: "top"
+            text_size: self.size
+            size_hint: 1, 0.4
+            pos_hint: {"center_x": 0.5, "top": 0.6}
 
-        Spinner:
-            text: "Mesa"
-            values: '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'
-            
+        #layout inferior
         BoxLayout:
-            orientation: 'horizontal'
-            size_hint: 1, None
-            height: 30
+            orientation: "vertical"
+            spacing: 10
+            size_hint: 1,0.2
+            pos_hint: {"center_x": 0.5, "y": 0}
 
-            canvas.before:
-                Color:
-                    rgba: 0.5,0.5,0.5,1
-                Rectangle:
-                    size: self.size
-                    pos: self.pos
-
-            Label:
-                text: 'Bar'
-
-            CheckBox:
-                id: radio_bar
-                active: True
-                group: "pedido"
-                allow_no_selection: False
-                on_active: root.atualiza_lista_cardapio()
-
-            Label:
-                text: 'Cozinha'
-
-            CheckBox:
-                id: radio_cozinha
-                active: False
-                group: "pedido"
-                allow_no_selection: False
-                on_active: root.atualiza_lista_cardapio()
-
-        BoxLayout:
-            orientation: 'horizontal'
-
+            enviar
             Button:
-                text: '-'
-                on_press: root.decrementa_qtd_item()
-
-            TextInput:
-                id: qtd_item
-                text: '0'
-
+                text: "Enviar"
+        
+            #voltar
             Button:
-                text: '+'
-                on_press: root.incrementa_qtd_item()
-            
-        Spinner:
-            id: itens_cardapio
-            text: "Salecione"
-            values: root.cardapio_itens
-    
-        Button:
-            text: "Enviar"
-    
-        Button:
-            text: "Voltar"
-            on_release:
-                app.root.current = 'tela_principal'
-                root.manager.transition.direction = 'right'
-                root.manager.transition.duration = 0
+                text: "Voltar"
+                on_release:
+                    app.root.current = 'tela_principal'
+                    root.manager.transition.direction = 'right'
+                    root.manager.transition.duration = 0
 
 ###################################################################
 
