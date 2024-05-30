@@ -194,6 +194,7 @@ GerenciadorTelas:
 
             #mesa
             Spinner:
+                id: mesa
                 text: "Mesa"
                 values: '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'
             
@@ -258,12 +259,14 @@ GerenciadorTelas:
                 Spinner:
                     size_hint_x: 2
                     id: itens_cardapio
-                    text: "Salecione"
+                    text: "Selecione"
                     values: root.cardapio_itens
 
             #adicionar itens
             Button:
                 text: 'Adicionar'
+                on_press:
+                    root.inclui_pedido_na_lista()
                   
         #Lista de itens 
         Label:
@@ -281,9 +284,11 @@ GerenciadorTelas:
             size_hint: 1,0.2
             pos_hint: {"center_x": 0.5, "y": 0}
 
-            enviar
+            #enviar
             Button:
-                text: "Enviar"
+                text: "Enviar pedido"
+                on_press:
+                    root.enviar_pedido()
         
             #voltar
             Button:
