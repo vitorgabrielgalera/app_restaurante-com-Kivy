@@ -1,0 +1,420 @@
+#:kivy 2.3.0
+
+#sem transição
+#:import NoTransition kivy.uix.screenmanager.NoTransition
+
+#uma tela vai para o fundo, a outra vem pelo lado
+#:import SwapTransition kivy.uix.screenmanager.SwapTransition
+
+#uma tela vai perdendo opacidade enquanto a outra ganha
+#:import FadeTransition kivy.uix.screenmanager.FadeTransition
+
+<Label>:
+    color: 1, 1, 1, 1
+    font_size: 20
+    halign: "center"
+    valign: "middle"
+
+GerenciadorTelas:
+    transition: NoTransition()
+    TelaGarcom:
+    TelaLogin:
+    TelaPrincipal:
+    
+    TelaCozinha:  
+    TelaCaixa:
+    TelaBar:
+
+###################################################################
+
+<PopupErro>:
+    id: popup_erro
+    auto_dismiss: False
+    size_hint: 0.7, 0.4
+    pos_hint: {"center_x": 0.5, "center_y": 0.5}
+    title: "Erro de autenticação"
+    BoxLayout:
+        orientation: "vertical"
+
+        Label:
+            text: "Usuário ou senha inválidos"
+            size_hint: 1, 0.8
+            text_size: self.size
+
+        Button:
+            text: "Fechar"
+            on_press: root.dismiss()
+
+###################################################################
+
+<TelaLogin>:
+    
+    name:"tela_login"
+
+    canvas.before:
+        Color:
+            rgba: 1,1,1,1
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: "restaurante fundo.jpg"
+
+    #imagem de fundo e mensagem inicial
+    FloatLayout:
+        size_hint: 1,1
+
+        #mensagem inicial
+        Label:
+            text: "Bem vindo ao nosso app insira suas credenciais para acessar o sistema!"
+            size_hint: 0.8,0.3
+            text_size: self.size
+            pos_hint: {"center_x": 0.5, "top": 0.9}
+    
+    #entradas de texto e botôes
+    BoxLayout:
+        orientation: "vertical"
+        spacing: 10
+        size_hint: 0.8, 0.4
+        pos_hint: {"center_x": 0.5, "y": 0.1}
+
+        #texto para o usuário
+        TextInput:
+            id: txt_usuario
+            padding_y: 15,0
+            hint_text: "Digite o usuário"
+            color: 0,0,0,1
+            haling: "center"
+            write_tab: False 
+
+        #texto para a senha
+        TextInput:
+            id: txt_senha
+            padding_y: 15,0
+            hint_text: "Digite a senha"
+            password: True
+            color: 0,0,0,1
+            haling: "center"
+            write_tab: False 
+
+        #botão para entrar
+        Button:
+            text: "Entrar"
+            on_press:
+                root.autenticar()
+
+        #botão para sair
+        Button:
+            text: "Sair"
+            on_press: app.stop()
+
+###################################################################
+
+<TelaPrincipal>:
+
+    name: 'tela_principal'
+
+    canvas.before:
+        Color:
+            rgba: 1,1,1,1
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: "restaurante fundo.jpg"
+
+    #layout para textos e botões
+    GridLayout:
+
+        size_hint: 1,1
+        cols: 1
+        spacing: 2
+        padding: 6
+    
+        Label:
+            text: "Olá, seja bem vindo ao nosso super mega melhor de bão de tudo app!"
+            text_size: self.size
+
+        Label:
+            text: ""
+        
+        #botões para as outras telas
+        Button:
+            text: 'Garçom'
+            on_release:
+                app.root.current = 'tela_garcom'
+                root.manager.transition.direction = 'left'
+                root.manager.transition.duration = 0
+
+        Button:
+            text: 'Cozinha'
+            on_release:
+                app.root.current = 'tela_cozinha'
+                root.manager.transition.direction = 'up'
+                root.manager.transition.duration = 0
+
+        Button:
+            text: 'Caixa'
+            on_release:
+                app.root.current = 'tela_caixa'
+                root.manager.transition.direction = 'rigth'
+                root.manager.transition.duration = 0
+
+        Button:
+            text: 'Bar'
+            on_release:
+                app.root.current = 'tela_bar'
+                root.manager.transition.direction = 'left'
+                root.manager.transition.duration = 0
+
+###################################################################
+
+<TelaGarcom>:
+
+    name: 'tela_garcom'
+
+    canvas.before:
+        Color:
+            rgba: 1,1,1,1
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: "restaurante fundo.jpg"
+    
+    #layout para os widgets
+    FloatLayout:
+        id: main_box
+        size_hint: 0.8, 0.9
+        pos_hint: {"center_x": 0.5, "center_y": 0.5}
+
+        #layout superior
+        BoxLayout:
+            orientation: "vertical"
+            spacing: 10
+            size_hint: 1,0.4
+            pos_hint: {"center_x": 0.5, "top": 1}
+
+            #mesa
+            Spinner:
+                id: mesa
+                text: "Mesa"
+                values: '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'
+            
+            #radiobuttons
+            BoxLayout:
+                orientation: 'horizontal'
+                size_hint: 1, None
+                height: 30
+
+                canvas.before:
+                    Color:
+                        rgba: 0.5,0.5,0.5,1
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+
+                Label:
+                    text: 'Bar'
+
+                CheckBox:
+                    id: radio_bar
+                    active: True
+                    group: "pedido"
+                    allow_no_selection: False
+                    on_active: root.atualiza_lista_cardapio()
+
+                Label:
+                    text: 'Cozinha'
+
+                CheckBox:
+                    id: radio_cozinha
+                    active: False
+                    group: "pedido"
+                    allow_no_selection: False
+                    on_active: root.atualiza_lista_cardapio()
+
+            #número de itens
+            BoxLayout:
+                orientation: 'horizontal'
+                spacing: 10
+
+                BoxLayout:
+                    orientation: 'horizontal'
+
+                    Button:
+                        size_hint_x: 0.7
+                        text: '-'
+                        on_press: root.decrementa_qtd_item()
+
+                    TextInput:
+                        id: qtd_item
+                        text: '0'
+                        font_size: 30
+                        haling: "center"
+                        valing: "center"
+
+                    Button:
+                        size_hint_x: 0.7
+                        text: '+'
+                        on_press: root.incrementa_qtd_item()
+                    
+                Spinner:
+                    size_hint_x: 2
+                    id: itens_cardapio
+                    text: "Selecione"
+                    values: root.cardapio_itens
+
+            #adicionar itens
+            Button:
+                text: 'Adicionar'
+                on_press:
+                    root.inclui_pedido_na_lista()
+                  
+        #Lista de itens 
+        Label:
+            id: itens_pedido
+            text: "Pedido:"
+            valing: "top"
+            text_size: self.size
+            size_hint: 1, 0.4
+            pos_hint: {"center_x": 0.5, "top": 0.6}
+
+        #layout inferior
+        BoxLayout:
+            orientation: "vertical"
+            spacing: 10
+            size_hint: 1,0.2
+            pos_hint: {"center_x": 0.5, "y": 0}
+
+            #enviar
+            Button:
+                text: "Enviar pedido"
+                on_press:
+                    root.enviar_pedido()
+        
+            #voltar
+            Button:
+                text: "Voltar"
+                on_release:
+                    app.root.current = 'tela_principal'
+                    root.manager.transition.direction = 'right'
+                    root.manager.transition.duration = 0
+
+###################################################################
+
+<TelaCozinha>:
+
+    name: 'tela_cozinha'
+
+    canvas.before:
+        Color:
+            rgba: 1,1,1,1
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: "restaurante fundo.jpg"
+
+    #layout para os widgets
+    GridLayout:
+        cols: 1
+        spacing: 2
+        padding: 6
+
+        SecondCozinha:
+            
+        TextInput:
+            hint_text: 'sem pedidos'
+
+        Button:
+            text: "Voltar"
+            on_release:
+                app.root.current = 'tela_principal'
+                root.manager.transition.direction = 'down'
+                root.manager.transition.duration = 0
+
+#layout secundário para os textos
+<SecondCozinha@GridLayout>:
+    cols: 1
+    spacing: 2
+    padding: 6
+
+    Label:
+        text: "Cozinha"
+    Label:
+        text: 'Pedidos:'
+
+###################################################################
+
+<TelaCaixa>:
+
+    name: 'tela_caixa'
+
+    canvas.before:
+        Color:
+            rgba: 1,1,1,1
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: "restaurante fundo.jpg"
+
+    #layout para os widgets            
+    GridLayout:
+        cols: 1
+        spacing: 2
+        padding: 6
+
+        Label:
+            text: "Caixa"
+
+        TextInput:
+            hint_text: 'mesa'
+            
+        TextInput:
+            hint_text: 'sem pedido'
+
+        Button:
+            text: "Voltar"
+            on_release:
+                app.root.current = 'tela_principal'
+                root.manager.transition.direction = 'left'
+                root.manager.transition.duration = 0
+
+###################################################################
+
+<TelaBar>:
+    name: 'tela_bar'
+
+    canvas.before:
+        Color:
+            rgba: 1,1,1,1
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            source: "restaurante fundo.jpg"
+
+        #layout para os widgets
+    GridLayout:
+        cols: 1
+        spacing: 2
+        padding: 6
+
+        SecondCozinha:
+            
+        TextInput:
+            hint_text: 'sem pedidos'
+
+        Button:
+            text: "Voltar"
+            on_release:
+                app.root.current = 'tela_principal'
+                root.manager.transition.direction = 'down'
+                root.manager.transition.duration = 0
+
+#layout secundário para os textos
+<SecondCBar@GridLayout>:
+    cols: 1
+    spacing: 2
+    padding: 6
+
+    Label:
+        text: "Bar"
+    Label:
+        text: 'Pedidos:'
